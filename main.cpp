@@ -287,6 +287,8 @@ void loadBorrower()
 }
 main()
 {
+    loadBook();
+    loadBorrower();
     p:
     Login();
     string misc;
@@ -389,11 +391,12 @@ main()
         if (op == 7)
         {
             /*  Logout  */
+            StoreBook();
+            StoreBorrower();
             system("CLS"); 
             goto p;
         }
-        StoreBook();
-        StoreBorrower();
+       
         system("CLS");  
     }
 }
