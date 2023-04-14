@@ -180,7 +180,7 @@ void StoreBook()
     int g = 0;
     fstream newfile;
     newfile.open("Bookdata.txt", ios::out);
-    while (g <= bookCounter )
+    while (g < bookCounter )
     {
         newfile << BookList[g].title << "," << BookList[g].author << "," << BookList[g].isbn << "," << BookList[g].noOfCopies << "," << BookList[g].noOfCopiesOut<< endl;
         g = g + 1;
@@ -206,22 +206,22 @@ string recordget(string line, int field)
     }
     return rec;
 }
+
 void loadBook()
 {
     string line;
     fstream newwfile;
     newwfile.open("Bookdata.txt", ios::in);
-    while (!newwfile.eof())
+    while (getline(newwfile, line))
     {
-        getline(newwfile, line);
-        if (line == "")
+        if (line.empty())
         {
             break;
         }
         else
         {
             BookList[bookCounter].title = recordget(line, 1);
-            BookList[bookCounter].author = stoi(recordget(line, 2));
+            BookList[bookCounter].author = recordget(line, 2);
             BookList[bookCounter].isbn = stoi(recordget(line, 3));
             BookList[bookCounter].noOfCopies = stoi(recordget(line, 4));
             BookList[bookCounter].noOfCopiesOut = stoi(recordget(line, 5));
@@ -230,13 +230,14 @@ void loadBook()
     }
     newwfile.close();
 }
+
 /**--------------Store Borrower------------------------------------*/
 void StoreBorrower()
 {
     int g = 0;
     fstream newfile;
     newfile.open("Borrowerdata.txt", ios::out);
-    while (g <= borrowerCounter )
+    while (g < borrowerCounter )
     {
         newfile << borrowerList[g].borrowerName << "," << borrowerList[g].address << "," << borrowerList[g].contact << "," << borrowerList[g].borrowedBookName << endl;
         g = g + 1;
@@ -262,29 +263,30 @@ string recordget2(string line, int field)
     }
     return rec;
 }
+
 void loadBorrower()
 {
     string line;
     fstream newwfile;
     newwfile.open("Borrowerdata.txt", ios::in);
-    while (!newwfile.eof())
+    while (getline(newwfile, line))
     {
-        getline(newwfile, line);
-        if (line == "")
+        if (line.empty())
         {
             break;
         }
         else
         {
             borrowerList[borrowerCounter].borrowerName = recordget2(line, 1);
-            borrowerList[borrowerCounter].address = stoi(recordget2(line, 2));
-            borrowerList[borrowerCounter].contact = stoi(recordget2(line, 3));
-            borrowerList[borrowerCounter].borrowedBookName = stoi(recordget2(line, 4));
+            borrowerList[borrowerCounter].address = recordget2(line, 2);
+            borrowerList[borrowerCounter].contact = recordget2(line, 3);
+            borrowerList[borrowerCounter].borrowedBookName = recordget2(line, 4);
             borrowerCounter = borrowerCounter + 1;
         }
     }
     newwfile.close();
 }
+
 main()
 {
     loadBook();
